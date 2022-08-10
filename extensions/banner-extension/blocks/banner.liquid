@@ -1,0 +1,34 @@
+<div  style="position:fixed; top: 0px; left: 0px; right: 0px; background: blue;">
+    {% comment %} <div style="color: {{ block.settings.color }}"> {% endcomment %}
+    {% assign revenue_share_percentage = 20 %}
+    {% assign revenue_share_decimal = revenue_share_percentage | times: 0.01 %}
+    {% assign cart_total = cart.total_price | divided_by: 100 %}
+    {% assign proceeds = revenue_share_decimal | times: cart_total %}
+    {% assign recipient = "ACLU" %}
+    <div style="color: white; padding: 10px; text-align: center;"; >
+        {% if cart.total_price > 0 %}
+            You're on track to donate
+            <b>
+                ${{ proceeds }}
+            </b>
+            to the
+            <b>
+                {{ recipient }}
+            </b>
+            with this purchase.
+        {% else %}
+            <b>
+                {{ revenue_share_percentage }}%
+            </b>
+            of your purchase will go to the <b>{{ recipient }}</b>!
+        {% endif %}
+
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "Banner",
+    "target": "body"
+}
+{% endschema %}
