@@ -1,3 +1,62 @@
+
+{% comment %} <script src="{{ 'parseurl.js' | asset_url }}" async="async"></script> {% endcomment %}
+<script>
+    const localStorageKey = 'non_profit_referrer';
+
+    function parseURL() {
+        var params = window.location.search.substring(1);
+        if (!params) {
+            return {};
+        }
+        return JSON.parse('{"' + decodeURI(params).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
+    }
+
+    function tryUtmReferrer(params) {
+        const utmParameters = {
+            "147620": {
+                name: "ACLU",
+                revenueShare: 0.2,
+                id: "147620"
+            },
+            "51234": {
+                name: "YMCA",
+                revenueShare: 0.3,
+                id: "51234"
+            }
+        };
+        // Check whether the URL contains a UTM source parameter and if the utm_source is
+        // recognized, return the dictionary associated with the UTM source
+        if ('utm_source' in params && params['utm_source'] in utmParameters) {
+            return utmParameters[params['utm_source']];
+        } else {
+            return null;
+        }
+    }
+
+    function getReferrerFromURL(){
+        const urlParams = parseURL();
+        var paramHash = tryUtmReferrer(urlParams);
+        if (!paramHash) {
+            return null;
+        }
+        window.localStorage.setItem(localStorageKey, JSON.stringify(paramHash));
+        return paramHash;
+    }
+
+    function getReferrerFromStorage(){
+        console.log("in storage loop");
+        return JSON.parse(window.localStorage.getItem(localStorageKey));
+    }
+
+
+    function justDoTheTHing(){
+        var referrerObject = getReferrerFromURL();
+        referrerObject = !!referrerObject ? referrerObject : getReferrerFromStorage();
+        // now we need to set html variables to populate the banner
+    }
+
+    justDoTheTHing();
+</script>
 <div  style="position:fixed; top: 0px; left: 0px; right: 0px; background: blue;">
     {% comment %} <div style="color: {{ block.settings.color }}"> {% endcomment %}
     {% assign revenue_share_percentage = 20 %}
