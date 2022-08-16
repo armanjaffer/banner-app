@@ -33,6 +33,7 @@ function tryUtmReferrer(params) {
 function getReferrerFromURL(){
     const urlParams = parseURL();
     var paramHash = tryUtmReferrer(urlParams);
+    // When more referrer configurations are used, will add new tryXReferrer methods
     if (!paramHash) {
         return null;
     }
@@ -54,7 +55,7 @@ function validateReferrerObject(referrerObject) {
     return !!referrerObject && typeof(referrerObject) === 'object' && 'name' in referrerObject && 'revenueShare' in referrerObject && 'id' in referrerObject;
 }
 
-function justDoTheTHing(){
+function populateBanner(){
     var referrerObject = getReferrerFromURL();
     referrerObject = !!referrerObject ? referrerObject : getReferrerFromStorage();
 
@@ -63,8 +64,6 @@ function justDoTheTHing(){
         console.log("no nonprofit referrer")
         return null;
     }
-    console.log("we're in the external js file now");
-
 
     const referrerName = referrerObject.name;
     const referrerPercentRevenueShare = referrerObject.revenueShare;
@@ -94,5 +93,5 @@ function justDoTheTHing(){
 }
 
 window.onload = function() {
-    justDoTheTHing();
+    populateBanner();
 };
