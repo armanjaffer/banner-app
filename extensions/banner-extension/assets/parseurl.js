@@ -77,7 +77,7 @@ function populateBanner(){
     }
 
     // Need to multiply by .01 to convert percent to decimal
-    var referrerRevenue = cartTotal * referrerPercentRevenueShare * 0.01;
+    var referrerRevenue = parseFloat(cartTotal * referrerPercentRevenueShare * 0.01).toFixed(2);
 
     if (cartTotal > 0){
         document.getElementById("proceeds").innerHTML = '$' + referrerRevenue;

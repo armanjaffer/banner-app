@@ -1,8 +1,7 @@
 
 <script src="{{ 'parseurl.js' | asset_url }}" async="async"></script>
 
-<div  id="banner" style="display: none; position:fixed; top: 0px; left: 0px; right: 0px; background: blue;">
-    {% comment %} <div style="color: {{ block.settings.color }}"> {% endcomment %}
+<div  id="banner" style="z-index: 100; display: none; position:fixed; top: 0px; left: 0px; right: 0px; background: blue;">
     {% assign cart_total = cart.total_price | divided_by: 100 %}
 
     <div id="dataDiv" data-cart-total="{{ cart_total }}">
