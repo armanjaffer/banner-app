@@ -1,85 +1,26 @@
 
-{% comment %} <script src="{{ 'parseurl.js' | asset_url }}" async="async"></script> {% endcomment %}
-<script>
-    const localStorageKey = 'non_profit_referrer';
+<script src="{{ 'parseurl.js' | asset_url }}" async="async"></script>
 
-    function parseURL() {
-        var params = window.location.search.substring(1);
-        if (!params) {
-            return {};
-        }
-        return JSON.parse('{"' + decodeURI(params).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
-    }
-
-    function tryUtmReferrer(params) {
-        const utmParameters = {
-            "147620": {
-                name: "ACLU",
-                revenueShare: 0.2,
-                id: "147620"
-            },
-            "51234": {
-                name: "YMCA",
-                revenueShare: 0.3,
-                id: "51234"
-            }
-        };
-        // Check whether the URL contains a UTM source parameter and if the utm_source is
-        // recognized, return the dictionary associated with the UTM source
-        if ('utm_source' in params && params['utm_source'] in utmParameters) {
-            return utmParameters[params['utm_source']];
-        } else {
-            return null;
-        }
-    }
-
-    function getReferrerFromURL(){
-        const urlParams = parseURL();
-        var paramHash = tryUtmReferrer(urlParams);
-        if (!paramHash) {
-            return null;
-        }
-        window.localStorage.setItem(localStorageKey, JSON.stringify(paramHash));
-        return paramHash;
-    }
-
-    function getReferrerFromStorage(){
-        console.log("in storage loop");
-        return JSON.parse(window.localStorage.getItem(localStorageKey));
-    }
-
-
-    function justDoTheTHing(){
-        var referrerObject = getReferrerFromURL();
-        referrerObject = !!referrerObject ? referrerObject : getReferrerFromStorage();
-        // now we need to set html variables to populate the banner
-    }
-
-    justDoTheTHing();
-</script>
-<div  style="position:fixed; top: 0px; left: 0px; right: 0px; background: blue;">
+<div  id="banner" style="display: none; position:fixed; top: 0px; left: 0px; right: 0px; background: blue;">
     {% comment %} <div style="color: {{ block.settings.color }}"> {% endcomment %}
-    {% assign revenue_share_percentage = 20 %}
-    {% assign revenue_share_decimal = revenue_share_percentage | times: 0.01 %}
     {% assign cart_total = cart.total_price | divided_by: 100 %}
-    {% assign proceeds = revenue_share_decimal | times: cart_total %}
-    {% assign recipient = "ACLU" %}
-    <div style="color: white; padding: 10px; text-align: center;"; >
-        {% if cart.total_price > 0 %}
+
+    <div id="dataDiv" data-cart-total="{{ cart_total }}">
+    <div style="color: white; padding: 10px; text-align: center;">
+        {% if cart_total > 0 %}
             You're on track to donate
-            <b>
-                ${{ proceeds }}
+            <b id="proceeds">
             </b>
             to the
-            <b>
-                {{ recipient }}
+            <b id="recipient">
             </b>
             with this purchase.
         {% else %}
-            <b>
-                {{ revenue_share_percentage }}%
+            <b id="revenueSharePercentage">
             </b>
-            of your purchase will go to the <b>{{ recipient }}</b>!
+            of this purchase will be donated to the
+            <b id="potentialRecipient">
+            </b>!
         {% endif %}
 
     </div>
