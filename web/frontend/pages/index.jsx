@@ -37,8 +37,8 @@ export default function HomePage() {
                 <TextContainer spacing="loose">
                   <Heading>Thank you for installing Kindred 🎉</Heading>
                   <p>
-                    We're excited to find new values-aligned customers to shop at your store! If you have any problems or questions feel free to
-                    reach us at &nbsp;
+                    We're excited to find new customers to shop at your store! If you have any problems or questions feel free to
+                    reach us at&nbsp;
                     <Link url="mailto:usekindred@gmail.com">
                       usekindred@gmail.com
                     </Link>
@@ -60,6 +60,13 @@ export default function HomePage() {
                 </div>
               </Stack.Item>
             </Stack>
+          </Card>
+          <Card>
+          <div style={{position: 'relative', paddingBottom: '70.25%', height: '1000%', marginTop: '5%'}}>
+                <iframe style={{position: "absolute", top: 0, left: 0, width: "100%", height: "100%"}}
+                  src="https://www.youtube.com/embed/RvRhUHTV_8k">
+                </iframe>
+              </div>
           </Card>
         </Layout.Section>
       </Layout>
