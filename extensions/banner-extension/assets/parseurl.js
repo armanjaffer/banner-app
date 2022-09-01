@@ -5,6 +5,7 @@ function parseURL() {
     if (!params) {
         return {};
     }
+    console.log(JSON.parse('{"' + decodeURI(params).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}'));
     return JSON.parse('{"' + decodeURI(params).replace(/"/g, '\\"').replace(/&/g, '","').replace(/=/g,'":"') + '"}');
 }
 
@@ -37,6 +38,10 @@ function getReferrerFromURL(){
     if (!paramHash) {
         return null;
     }
+
+    // Add paramHash to local storage for future when params may not be available
+    // If necessary to clear localStorage (deal no longer valid), will implement timestamp
+    // here (so freshness of referral can be checked)
     window.localStorage.setItem(localStorageKey, JSON.stringify(paramHash));
     return paramHash;
 }
@@ -93,5 +98,6 @@ function populateBanner(){
 }
 
 window.onload = function() {
+    console.log("this is a new version");
     populateBanner();
 };

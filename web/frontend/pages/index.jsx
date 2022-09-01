@@ -10,9 +10,8 @@ import {
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 
-import { trophyImage } from "../assets";
+import { trophyImage, kindredBlue } from "../assets";
 
-import { ProductsCard } from "../components";
 
 export default function HomePage() {
   return (
@@ -28,40 +27,26 @@ export default function HomePage() {
               alignment="center"
             >
               <Stack.Item fill>
+                <div width={'50%'} margin={'auto'}>
+                  <Image
+                        source={kindredBlue}
+                        alt="Kindred logo"
+                  />
+                </div>
+                <br/>                <br/>
                 <TextContainer spacing="loose">
-                  <Heading>Nice work on building a Shopify app 🎉</Heading>
+                  <Heading>Thank you for installing Kindred 🎉</Heading>
                   <p>
-                    Your app is ready to explore! It contains everything you
-                    need to get started including the{" "}
-                    <Link url="https://polaris.shopify.com/" external>
-                      Polaris design system
+                    We're excited to find new values-aligned customers to shop at your store! If you have any problems or questions feel free to
+                    reach us at &nbsp;
+                    <Link url="mailto:usekindred@gmail.com">
+                      usekindred@gmail.com
                     </Link>
-                    ,{" "}
-                    <Link url="https://shopify.dev/api/admin-graphql" external>
-                      Shopify Admin API
-                    </Link>
-                    , and{" "}
-                    <Link
-                      url="https://shopify.dev/apps/tools/app-bridge"
-                      external
-                    >
-                      App Bridge
-                    </Link>{" "}
-                    UI library and components.
                   </p>
                   <p>
-                    Ready to go? Start populating your app with some sample
-                    products to view and test in your store.{" "}
-                  </p>
-                  <p>
-                    Learn more about building out your app in{" "}
-                    <Link
-                      url="https://shopify.dev/apps/getting-started/add-functionality"
-                      external
-                    >
-                      this Shopify tutorial
-                    </Link>{" "}
-                    📚{" "}
+                    <Link url="www.usekindred.com/faq" external>
+                      FAQ
+                    </Link>
                   </p>
                 </TextContainer>
               </Stack.Item>
@@ -76,9 +61,6 @@ export default function HomePage() {
               </Stack.Item>
             </Stack>
           </Card>
-        </Layout.Section>
-        <Layout.Section>
-          <ProductsCard />
         </Layout.Section>
       </Layout>
     </Page>
